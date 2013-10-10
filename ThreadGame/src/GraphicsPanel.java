@@ -2,6 +2,10 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 import java.util.*;
+
+/*
+ * Where we would add sychronization and why
+ */
 public class GraphicsPanel extends JPanel{
 
 	/**
