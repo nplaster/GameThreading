@@ -1,13 +1,15 @@
 
 public abstract class Player implements Runnable{
+	protected static GraphicsPanel graphics;
 	private Thread playertheard;
 	private Location location;
 	private char direction;
 	private int points;
 	
-	public Player(){
+	public Player(GraphicsPanel graphics){
 		direction = 'S';
 		initializePosition();
+		this.graphics = graphics;
 	}
 	public void run(){
 		//infinite loop
@@ -49,11 +51,16 @@ public abstract class Player implements Runnable{
 		//deal with graphics?
 				
 	}
-	public int getDirection() {
+	
+	public char getDirection() {
 		return this.direction;
 	}
 	public abstract char chooseDirection();
 	public abstract void initializePosition();
+	
+	public void setLocation(Location location){
+		this.location = location;
+	}
 	
 	public Location getLocation() {
 		return this.location = location;
@@ -70,6 +77,10 @@ public abstract class Player implements Runnable{
 
 	public int getPoints() {
 		return this.points;
+	}
+	
+	public void addPoints(){
+		this.points +=1;
 	}
 
 	public void setDirection(char c) {

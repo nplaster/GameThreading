@@ -1,10 +1,8 @@
 
 public class Computer extends Player{
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
+	public Computer(GraphicsPanel graphics){
+		super(graphics);
 	}
 
 	@Override

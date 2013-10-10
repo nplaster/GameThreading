@@ -1,22 +1,18 @@
 
 public class Human extends Player{
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
+	public Human(GraphicsPanel graphics) {
+		super(graphics);
 	}
 
 	@Override
 	public char chooseDirection() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getDirection();
 	}
 
 	@Override
 	public void initializePosition() {
-		// TODO Auto-generated method stub
-		
+		setLocation(new Location(0,0));
 	}
 
 }
