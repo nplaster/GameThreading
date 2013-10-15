@@ -1,24 +1,26 @@
 
-public abstract class Player implements Runnable{
+public abstract class Player implements Runnable {
+	
 	protected static GraphicsPanel graphics;
-	private Thread playertheard;
+	private Thread playerthread;
 	private Location location;
 	private char direction;
 	private int points;
 	
-	public Player(GraphicsPanel graphics){
+	public Player(GraphicsPanel graphics) {
 		direction = 'S';
 		initializePosition();
 		this.graphics = graphics;
 	}
-	public void run(){
+
+	public void run() {
 		//infinite loop
-		while (Thread.currentThread() == playertheard){
+		while (Thread.currentThread() == playerthread) {
 			//player moves
 			move();
 			//then sleeps
 			try {
-				Thread.sleep(40);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -29,7 +31,7 @@ public abstract class Player implements Runnable{
 		setDirection(chooseDirection());
 		Location nextLocation = null;
 		
-		switch (getDirection()){
+		switch (getDirection()) {
 		case 'R':
 			nextLocation = new Location(getLocation().getX() + 1, getLocation().getY());
 			break;
@@ -48,17 +50,30 @@ public abstract class Player implements Runnable{
 		default:
 			nextLocation = new Location(0,0);
 		}
-		//deal with graphics?
-				
+		//check if spot is blocked
+		if(graphics.isBlocked(nextLocation, true)) {
+			setDirection('S');
+		}
+		//if it isn't set location
+		else {
+			setLocation(nextLocation);
+		}
+		
+		//check for point
+		if(graphics.checkForPoint(getLocation())) {
+			addPoints();
+		}
 	}
 	
 	public char getDirection() {
 		return this.direction;
 	}
+	
 	public abstract char chooseDirection();
+	
 	public abstract void initializePosition();
 	
-	public void setLocation(Location location){
+	public void setLocation(Location location) {
 		this.location = location;
 	}
 	
@@ -67,24 +82,28 @@ public abstract class Player implements Runnable{
 	}
 
 	public void start() {
-		playertheard = new Thread();
-		playertheard.start();
+		playerthread = new Thread(this);
+		playerthread.start();
 	}
 
 	public void stopPlaying() {
-		playertheard = null;	
+		playerthread = null;	
 	}
 
 	public int getPoints() {
 		return this.points;
 	}
 	
-	public void addPoints(){
+	public void addPoints() {
 		this.points +=1;
 	}
 
 	public void setDirection(char c) {
-		c = direction;
+		direction = c;
+	}
+	
+	public void stopThread() {
+		this.playerthread = null;
 	}
 
 }
