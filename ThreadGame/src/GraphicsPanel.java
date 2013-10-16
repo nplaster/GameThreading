@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.util.*;
 
 /*
- * Where we would add sychronization and why
+ * We would synchronize validateMap() because it accesses the map, which is
+ * a shared resource and other players may be checking to see if the map is valid.
+ * We would also synchronize getPossibleLocs(...)because it access the map, which
+ * is a shared resource and other plays may be checking for possible locations.
  */
 public class GraphicsPanel extends JPanel{
 
